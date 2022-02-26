@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.java</groupId>
+	<artifactId>Log4j2Code</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>ConsoleFileAppender</module>
+	</modules>
+	<properties>
+		<apache.log4j2.api>2.17.1</apache.log4j2.api>
+		<apache.log4j2.core>2.17.1</apache.log4j2.core>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${apache.log4j2.api}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${apache.log4j2.core}</version>
+		</dependency>
+			<dependency>
+			    <groupId>com.lmax</groupId>
+			    <artifactId>disruptor</artifactId>
+			    <version>3.4.4</version>
+			</dependency>
+
+	</dependencies>
+</project>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="trace">
+	<Properties>
+		<Property name="LOG_FILE">logs</Property>
+		<Property name="rollover.filename">%i</Property>
+	</Properties>
+	<Appenders>
+		<!-- Console Appender -->
+		<Console name="ConsoleAppender" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+		<!-- File Appender -->
+		<RollingRandomAccessFile name="commons-log"
+			fileName="${LOG_FILE}/commons.log"
+			filePattern="${LOG_FILE}/commons-%d{yyyy-MM-dd}.log.${rollover.filename}">
+			<PatternLayout>
+				<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="100 KB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingRandomAccessFile>
+
+		<RollingRandomAccessFile name="App-log"
+			fileName="${LOG_FILE}/app.log"
+			filePattern="${LOG_FILE}/app-%d{yyyy-MM-dd}.log.${rollover.filename}">
+			<PatternLayout>
+				<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="100 KB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingRandomAccessFile>
+		<!-- <File name="FileAppender" fileName="${LOG_FILE}/Console-${date:yyyyMMdd}.log" 
+			immediateFlush="false" append="true"> <PatternLayout pattern="%d{yyy-MM-dd 
+			HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" /> </File> -->
+		<!-- Async Appender -->
+		<async name="AsyncAppender">
+			<AppenderRef ref="commons-log" />
+			<AppenderRef ref="ConsoleAppender" />
+			<AppenderRef ref="App-log" />
+		</async>
+	</Appenders>
+	<Loggers>
+		<AsyncLogger  name="commons-log" level="debug" additivity="false">
+			<AppenderRef ref="commons-log" />
+			<AppenderRef ref="ConsoleAppender" />
+		</AsyncLogger >
+		<AsyncLogger  name="App-log" level="info" additivity="false">
+			<AppenderRef ref="App-log" />
+			<AppenderRef ref="ConsoleAppender" />
+		</AsyncLogger >
+		<Root level="debug">
+			<AppenderRef ref="AsyncAppender" />
+			<!-- <AppenderRef ref="ConsoleAppender" />
+			<AppenderRef ref="commons-log" />
+			<AppenderRef ref="App-log" /> -->
+		</Root>
+	</Loggers>
+</Configuration>
